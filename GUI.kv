@@ -1,0 +1,38 @@
+
+<MyLayout>
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 0
+        padding: 0
+
+        Button:
+            id: btn
+            text: '-'
+            on_release: dropdown.open(self)
+            size_hint_y: None
+            height: '48dp'
+
+        Widget:
+            on_parent: dropdown.dismiss()
+
+        DropDown:
+            id: dropdown
+            on_select: btn.text = 'Selected value: ' + args[1]
+
+            Button:
+                text: 'Value A'
+                size_hint_y: None
+                height: '48dp'
+                on_release: dropdown.select('A')
+
+            Button:
+                text: 'Value B'
+                size_hint_y: None
+                height: '48dp'
+                on_release: dropdown.select('B')
+
+            Button:
+                text: 'Value C'
+                size_hint_y: None
+                height: '48dp'
+                on_release: dropdown.select('C')

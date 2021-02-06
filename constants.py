@@ -4,3 +4,5 @@ class constants:
 
     class events:
         RELOAD = '-reload'
+
+        # button event starts with -butt- and after the index of button
