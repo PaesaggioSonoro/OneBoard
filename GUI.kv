@@ -8,31 +8,31 @@
         Button:
             id: btn
             text: '-'
-            on_release: dropdown.open(self)
+            on_release: playback.open(self)
             size_hint_y: None
             height: '48dp'
 
         Widget:
-            on_parent: dropdown.dismiss()
+            on_parent: playback.dismiss()
 
         DropDown:
-            id: dropdown
-            on_select: btn.text = 'Selected value: ' + args[1]
+            id: playback
+            on_select: btn.text = 'Selected value: ' + str(args)
 
             Button:
                 text: 'Value A'
                 size_hint_y: None
                 height: '48dp'
-                on_release: dropdown.select('A')
+                on_release: playback.select('A')
 
             Button:
                 text: 'Value B'
                 size_hint_y: None
                 height: '48dp'
-                on_release: dropdown.select('B')
+                on_release: playback.select('B')
 
             Button:
                 text: 'Value C'
                 size_hint_y: None
                 height: '48dp'
-                on_release: dropdown.select('C')
+                on_release: playback.select('C')
