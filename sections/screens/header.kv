@@ -1,0 +1,24 @@
+<Header>:
+    id: header
+    orientation: 'horizontal'
+    size_hint_y: 0.1
+    size_hint_min_y: 50
+    size_hint_max_y: 60
+    padding: 0
+    spacing: 0
+    Spinner:
+        id: playback_device
+        size_hint_y: None
+        height: '48dp'
+        on_text: root._onSpinnerSelect(self.text)
+
+#    ActionButton:
+#        icon: 'icons/play.png'
+#        on_press: root.resume()
+
+    ActionButton:
+        id: player_button
+        disabled: True
+        status: 0
+        icon: 'icons/pause.png'
+        on_press: root.toggle_pause(self)
