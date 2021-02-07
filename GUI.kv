@@ -7,32 +7,14 @@
 
         Button:
             id: btn
-            text: '-'
             on_release: playback.open(self)
-            size_hint_y: None
-            height: '48dp'
+            size_hint: (0.5, None)
+            height: '30dp'
 
         Widget:
             on_parent: playback.dismiss()
 
         DropDown:
             id: playback
-            on_select: btn.text = 'Selected value: ' + str(args)
-
-            Button:
-                text: 'Value A'
-                size_hint_y: None
-                height: '48dp'
-                on_release: playback.select('A')
-
-            Button:
-                text: 'Value B'
-                size_hint_y: None
-                height: '48dp'
-                on_release: playback.select('B')
-
-            Button:
-                text: 'Value C'
-                size_hint_y: None
-                height: '48dp'
-                on_release: playback.select('C')
+            on_select: btn.text = str(args[1][0])
+#            on_select: print('Selected device: ' + str(args[1][1]))
