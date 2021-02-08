@@ -20,7 +20,8 @@ class GUI(App, BoxLayout):
         self.header = Header()
         Sound.header = self.header
 
-
+    def on_stop(self):
+        Sound().status = 0
 
     def build(self):
         box = BoxLayout(orientation = 'vertical')
