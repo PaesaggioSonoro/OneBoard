@@ -6,6 +6,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 
+from sections.body import Body
 from sound import Sound
 from sections.header import Header
 
@@ -22,15 +23,11 @@ class GUI(App, BoxLayout):
 
 
     def build(self):
-        b2 = Button(text= 'ciao')
-        b2.bind(on_touch_down = self.pressed)
         box = BoxLayout(orientation = 'vertical')
-
+        box.spacing = 10
+        box.padding = 10
         box.add_widget(self.header)
-        box.add_widget(b2)
+        box.add_widget(Body())
 
         return box
 
-    def pressed(self, instance: Button, touch: MouseMotionEvent):
-        if not instance.collide_point(touch.x, touch.y): return
-        Sound().play()

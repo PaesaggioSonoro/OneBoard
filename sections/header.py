@@ -40,7 +40,9 @@ class Header(BoxLayout):
         # Clock.schedule_interval(self.update_player, 0.1)
 
     def _onSpinnerSelect(self, text):
-        Config().setDevice(self.devices_indexes[self.devices_names.index(text)])
+        index = self.devices_indexes[self.devices_names.index(text)]
+        Config().setDevice(index)
+        Sound.device_index = index
 
     def toggle_pause(self, btn: Button):
         if Header.player_playing:     # is playing

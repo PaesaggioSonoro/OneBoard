@@ -6,7 +6,7 @@ from time import sleep
 class Sound:
     chunk = 1024
     p = pyaudio.PyAudio()
-
+    device_index = 0
     header = None
 
     # singleton definition
@@ -22,7 +22,7 @@ class Sound:
             Sound._toInitialize = False
             super().__init__()
             self.status = 0         # 0 stop; 1 pause; 2 playing
-            self.playing_thread = Thread(target=self.reproduce)
+            self.playing_thread = Thread()
             self.thread_alive = False
 
     @staticmethod
@@ -57,12 +57,12 @@ class Sound:
         Sound.header.update_player()
         self.thread_alive = True
         self.status = 2
-        wf: wave = wave.open('audio.wav', 'rb')
+        wf: wave = wave.open('audio/audio.wav', 'rb')
 
         stream = Sound.p.open(format=Sound.p.get_format_from_width(wf.getsampwidth()),
                               channels=wf.getnchannels(),
                               rate=wf.getframerate(),
-                              output=True, output_device_index=12)
+                              output=True, output_device_index=Sound.device_index)
 
         data = wf.readframes(Sound.chunk)
 
