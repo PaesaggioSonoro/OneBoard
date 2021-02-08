@@ -24,7 +24,7 @@ class GUI(App, BoxLayout):
         self.header = Header()
         self.body = Body()
         self.arduino_queue = Queue(maxsize=10)
-        self.arduino = Arduino(self.arduino_queue)
+        Arduino.initialize(self.arduino_queue)
         Sound.header = self.header
 
         Clock.schedule_interval(self.getQueueUpdates, 0.1)
@@ -36,7 +36,7 @@ class GUI(App, BoxLayout):
 
     def on_stop(self):
         Sound().status = 0
-        self.arduino.quit = True
+        Arduino.quit = True
 
     def build(self):
         box = BoxLayout(orientation = 'vertical')

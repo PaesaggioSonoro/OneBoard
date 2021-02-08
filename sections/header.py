@@ -67,6 +67,9 @@ class Header(BoxLayout):
     def _setSelectedPort(port_name: str):
         Arduino.port = port_name
 
+    def _connect(self):
+        Arduino.connect()
+
     def toggle_pause(self, btn: Button):
         if Header.player_playing:     # is playing
             self.sound.pause()
@@ -80,6 +83,7 @@ class Header(BoxLayout):
         btn : ActionButton = self.ids['player_button']
         btn.icon = 'icons/pause.png' if Header.player_playing else 'icons/play.png'
         btn.disabled = Header.player_disabled
+        
 
     # def resume(self):
     #     self.sound.resume()
