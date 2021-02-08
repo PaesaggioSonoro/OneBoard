@@ -1,3 +1,10 @@
 {
-    "device": 10
+    "device": 10,
+    "buttons": {
+        "b1": {
+            "name": "avemo capito non ce ne frega un cazzo cicciogamer89",
+            "file": "avemo capito non ce ne frega un cazzo cicciogamer89.wav"
+        }
+    },
+    "last_path": "C:\\Users\\Winblu\\Desktop\\ts sound"
 }

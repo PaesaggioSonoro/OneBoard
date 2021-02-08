@@ -4,7 +4,7 @@ from queue import Queue
 from time import sleep
 
 class Sound:
-    chunk = 1024
+    chunk = 100
     p = pyaudio.PyAudio()
     device_index = 0
     header = None
@@ -35,11 +35,11 @@ class Sound:
                 result.update({i:Sound.p.get_device_info_by_host_api_device_index(0, i).get('name')})
         return result
 
-    def play(self):
+    def play(self, audio: str):
         if self.thread_alive:
             self.status = 0             # stop playing
             self.playing_thread.join()  # wait for thread die
-        self.playing_thread = Thread(target=self.reproduce)
+        self.playing_thread = Thread(target=self.reproduce, args=(audio,))
         self.playing_thread.start()     # start new playback
 
     def pause(self):
@@ -51,13 +51,13 @@ class Sound:
     def stop(self):
         self.status = 0
 
-    def reproduce(self):
+    def reproduce(self, audio):
         from sections.header import Header
         Header.player_disabled = False
         Sound.header.update_player()
         self.thread_alive = True
         self.status = 2
-        wf: wave = wave.open('audio/audio.wav', 'rb')
+        wf: wave = wave.open('audio/' + audio, 'rb')
 
         stream = Sound.p.open(format=Sound.p.get_format_from_width(wf.getsampwidth()),
                               channels=wf.getnchannels(),

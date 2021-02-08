@@ -30,10 +30,27 @@ class Config:
     # def getRows(self) -> int:
     #     return int(self.data['rows'])
 
-    def getDevice(self):
+    def getDevice(self) -> int:
         return self._data.get('device')
 
+    def getButtons(self) -> dict:
+        return self._data['buttons']
+
+    def getButtonFile(self, id: str) -> str:
+        return self._data['buttons'][id]['file']
+
+    def getLastPath(self) -> str:
+        return self._data['last_path']
+
     # SETTERS
-    def setDevice(self, device: int):
+    def setDevice(self, device: int) -> None:
         self._data['device'] = device
+        self._save()
+
+    def setButton(self, id: str, name: str, path: str) -> None:
+        self._data['buttons'][id] = {"name": name, "file": path}
+        self._save()
+
+    def setLastPath(self, path: str) -> None:
+        self._data['last_path'] = path
         self._save()
