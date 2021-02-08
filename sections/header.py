@@ -10,6 +10,7 @@ from kivy.uix.spinner import Spinner
 
 from config import Config
 from sound import Sound
+from arduino import Arduino
 
 Builder.load_file('sections/screens/header.kv')
 
@@ -34,8 +35,8 @@ class Header(BoxLayout):
 
         toSelect = self.devices_names[self.devices_indexes.index(toSelectIndex)]
         self.playback.text = toSelect
-
         self.update_player()
+        self._updatePorts()
 
         # Clock.schedule_interval(self.update_player, 0.1)
 
@@ -43,6 +44,28 @@ class Header(BoxLayout):
         index = self.devices_indexes[self.devices_names.index(text)]
         Config().setDevice(index)
         Sound.device_index = index
+
+    def _updatePorts(self):
+        dropdown: DropDown = self.ids['ports_dropdown']
+        dropdown.clear_widgets()
+        toSelect = ''
+        for port in Arduino.getPorts():
+            if 'Arduino' in port.description and not 'Leonardo' in port.description:
+                toSelect = port.name
+            btn: Button = Button(text=port.name + ' - ' + port.description)
+            btn.size_hint_y = None
+            btn.height = 40
+            btn.font_size = 13
+
+            btn.port_name = port.name
+            btn.bind(on_release=lambda b: dropdown.select(b.port_name))
+            dropdown.add_widget(btn)
+        if toSelect:
+            dropdown.select(toSelect)
+
+    @staticmethod
+    def _setSelectedPort(port_name: str):
+        Arduino.port = port_name
 
     def toggle_pause(self, btn: Button):
         if Header.player_playing:     # is playing

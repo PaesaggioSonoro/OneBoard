@@ -18,11 +18,13 @@ class Body(GridLayout):
         for id, button in self.config.getButtons().items():
             Body.setup_button(self.ids[id], button['name'], button['file'])
 
-    def pressed(self, instance: Button, touch: MouseMotionEvent):
+    def pressed(self, instance: Button, touch: MouseMotionEvent = None):
+        if touch is not None:
+            if not instance.collide_point(touch.x, touch.y): return
         from os.path import basename, split, splitext, exists
         from os import remove
-        import ffmpeg, shutil
-        if not instance.collide_point(touch.x, touch.y): return
+        import ffmpeg
+
         if touch.button == 'left':
             if instance.file != '':
                 Sound().play(instance.file)
