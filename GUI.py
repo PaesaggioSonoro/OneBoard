@@ -37,10 +37,10 @@ class GUI(App, BoxLayout):
                 print('Pressed button: ' + data[1])
                 btn : Button = self.body.ids[data[1]]
                 self.body.pressed(btn)
-                # btn.state = 'up'
-                # def btn_up():
-                #     btn.state = 'down'
-                # Clock.schedule_once(btn_up,0.2)
+                btn.state = 'down'
+                def btn_normal(*args):
+                    btn.state = 'normal'
+                Clock.schedule_once(btn_normal,0.2)
 
 
     def on_stop(self):
