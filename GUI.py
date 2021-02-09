@@ -27,12 +27,21 @@ class GUI(App, BoxLayout):
         Arduino.initialize(self.arduino_queue)
         Sound.header = self.header
 
-        Clock.schedule_interval(self.getQueueUpdates, 0.1)
+        Clock.schedule_interval(self.getQueueUpdates, 0.05)
 
     def getQueueUpdates(self, *args):
         if not self.arduino_queue.empty():
             data = self.arduino_queue.get()
             if data is None: return
+            if data[0] == 'button':
+                print('Pressed button: ' + data[1])
+                btn : Button = self.body.ids[data[1]]
+                self.body.pressed(btn)
+                # btn.state = 'up'
+                # def btn_up():
+                #     btn.state = 'down'
+                # Clock.schedule_once(btn_up,0.2)
+
 
     def on_stop(self):
         Sound().status = 0

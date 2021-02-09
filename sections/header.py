@@ -37,8 +37,10 @@ class Header(BoxLayout):
         self.playback.text = toSelect
         self.update_player()
         self._updatePorts()
+        # Arduino.update_function = self.update_connection
+        # self.ids['connection_status'].icon = 'icons/information.png'
 
-        # Clock.schedule_interval(self.update_player, 0.1)
+        Clock.schedule_interval(self.update_connection, 0.2)
 
     def _onSpinnerSelect(self, text):
         index = self.devices_indexes[self.devices_names.index(text)]
@@ -68,7 +70,8 @@ class Header(BoxLayout):
         Arduino.port = port_name
 
     def _connect(self):
-        Arduino.connect()
+        if Arduino.connection_status != 2:
+            Arduino.connect()
 
     def toggle_pause(self, btn: Button):
         if Header.player_playing:     # is playing
@@ -83,7 +86,16 @@ class Header(BoxLayout):
         btn : ActionButton = self.ids['player_button']
         btn.icon = 'icons/pause.png' if Header.player_playing else 'icons/play.png'
         btn.disabled = Header.player_disabled
-        
+
+    def update_connection(self, *args):
+        btn: ActionButton = self.ids['connection_status']
+        if Arduino.connection_status == 0:
+            btn.icon = 'icons/disconnected.png'
+        elif Arduino.connection_status == 1:
+            btn.icon = 'icons/information.png'
+        elif Arduino.connection_status == 2:
+            btn.icon = 'icons/connected.png'
+
 
     # def resume(self):
     #     self.sound.resume()

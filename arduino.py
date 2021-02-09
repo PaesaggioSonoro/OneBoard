@@ -1,5 +1,5 @@
 from typing import List
-
+from typing import Callable
 import serial
 
 from threading import Thread
@@ -48,12 +48,14 @@ class Arduino:
                         print('Error, message is incomplete')
                         # return
                     data = message[1:7]
-                    if data == b'000000':
-                        Arduino.last_update = time.time()       # still alive
-                        Arduino.connection_status = 2
-
+                    if data == b'000000':       # still alive
+                        Arduino.last_update = time.time()
+                        if Arduino.connection_status != 2:
+                            Arduino.connection_status = 2
+                    if data[:3] == b'btn':
+                        Arduino.queue.put(('button', data[3:].decode('utf-8')))
                     # ERRORS
-                    elif data == b'err1':
+                    elif data == b'err001':
                         print('arduino message error')
 
             except serial.serialutil.SerialException:
@@ -66,4 +68,3 @@ class Arduino:
         import serial.tools.list_ports
         ports = list(serial.tools.list_ports.comports())
         return ports
-
