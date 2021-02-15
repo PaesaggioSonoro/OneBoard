@@ -52,3 +52,13 @@ Since arduino has no exceptions, when debugging, errors are useful and the progr
 [launchpad]: <https://www.google.com/search?q=launchpad&tbm=isch>
 [blank]: <https://minhaskamal.github.io/DownGit/#/home?url=https:%2F%2Fgithub.com%2FPaesaggioSonoro%2FOneBoard%2Fblob%2Fmaster%2Fsketchs%2FOneBoard_blank.zip>
 
+# Modify source code
+
+If you want to add your custom functions or create a better code you have to clone the repository and install all the depencencies, and you will be ready to make your changes.
+After cloning/downloading/forking the repository, you have to install the dependencies with
+```
+pip install -r requirements.txt
+```
+This will install all the dependencies except Pyaudio, that is difficoult to compile with pip. It's preferred to download the pre-built binaries from [this](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio) site. I used the version amd64 for python 3.8 ([PyAudio‑0.2.11‑cp38‑cp38‑win_amd64.whl](https://download.lfd.uci.edu/pythonlibs/w4tscw6k/PyAudio-0.2.11-cp38-cp38-win_amd64.whl)).
+
+If you want to compile Pyaudio yourself, you need to install PortAudio and Visual Studio compiler (for more info read [this](https://stackoverflow.com/a/54396790/14918902)).
