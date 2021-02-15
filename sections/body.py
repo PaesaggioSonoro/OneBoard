@@ -1,3 +1,4 @@
+from easygui import fileopenbox
 from kivy.input.providers.mouse import MouseMotionEvent
 from kivy.lang import Builder
 from kivy.uix.button import Button
@@ -5,8 +6,6 @@ from kivy.uix.gridlayout import GridLayout
 
 from config import Config
 from sound import Sound
-
-from easygui import fileopenbox
 
 Builder.load_file('sections/screens/body.kv')
 

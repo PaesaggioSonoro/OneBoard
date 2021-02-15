@@ -1,9 +1,9 @@
+from queue import Queue
+from threading import Thread
 from typing import List
-from typing import Callable
+
 import serial
 
-from threading import Thread
-from queue import Queue
 
 class Arduino:
     quit: bool = False
