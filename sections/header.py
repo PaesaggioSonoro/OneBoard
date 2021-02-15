@@ -73,7 +73,7 @@ class Header(BoxLayout):
         if Arduino.connection_status != 2:
             Arduino.connect()
 
-    def toggle_pause(self, btn: Button):
+    def toggle_pause(self, *args):
         if Header.player_playing:     # is playing
             self.sound.pause()
         else:                           # not playing

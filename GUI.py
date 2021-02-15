@@ -3,11 +3,8 @@ from queue import Queue
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.window import Window
-from kivy.input.providers.mouse import MouseMotionEvent
-from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.uix.label import Label
 
 from arduino import Arduino
 from sections.body import Body
@@ -34,13 +31,16 @@ class GUI(App, BoxLayout):
             data = self.arduino_queue.get()
             if data is None: return
             if data[0] == 'button':
-                print('Pressed button: ' + data[1])
+                # print('Pressed button: ' + data[1])
                 btn : Button = self.body.ids[data[1]]
                 self.body.pressed(btn)
                 btn.state = 'down'
                 def btn_normal(*args):
                     btn.state = 'normal'
                 Clock.schedule_once(btn_normal,0.2)
+            elif data == 'pause':
+                if not Header.player_disabled:
+                    self.header.toggle_pause()
 
 
     def on_stop(self):

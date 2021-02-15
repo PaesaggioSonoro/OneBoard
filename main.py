@@ -1,6 +1,6 @@
 from GUI import GUI
 from kivy.config import Config
-from kivy.resources import resource_add_path, resource_find
+from kivy.resources import resource_add_path
 import os, sys
 
 # basepath = os.path.dirname(os.path.abspath(__file__))
