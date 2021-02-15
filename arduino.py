@@ -26,20 +26,25 @@ class Arduino:
         if Queue is None:
             raise Exception('Queue not defined')
         if Arduino.port:
-            Arduino.connection = serial.Serial(Arduino.port, timeout=1)
             Thread(target=Arduino.update).start()
 
     last_update = None
 
     @staticmethod
+
     def update():
         Arduino.connection_status = 1
+        try:
+            Arduino.connection = serial.Serial(Arduino.port, timeout=1)
+        except serial.serialutil.SerialException:
+            Arduino.connection_status = 0
+            return
+
         import time
         time.sleep(2)
         Arduino.last_update = time.time()
         while not Arduino.quit:
-            if time.time() - Arduino.last_update > 3:
-                print('Arduino disconnected')
+            if time.time() - Arduino.last_update > 4:
                 break
             try:
                 if Arduino.connection.in_waiting:
@@ -52,14 +57,19 @@ class Arduino:
                         Arduino.last_update = time.time()
                         if Arduino.connection_status != 2:
                             Arduino.connection_status = 2
-                    if data[:3] == b'btn':
+                    elif data[:3] == b'btn':
                         Arduino.queue.put(('button', data[3:].decode('utf-8')))
+                    elif data == b'pause0':
+                        Arduino.queue.put('pause')
+                    elif data == b'toggle':
+                        Arduino.queue.put('toggle')
                     # ERRORS
                     elif data == b'err001':
                         print('arduino message error')
+                    else:
+                        print(data)
 
             except serial.serialutil.SerialException:
-                print('Arduino disconnected')
                 break
         Arduino.connection_status = 0
 
