@@ -1,14 +1,5 @@
 {
-    "device": 10,
-    "buttons": {
-        "b01": {
-            "name": "avemo capito non ce ne frega un cazzo cicciogamer89",
-            "file": "avemo capito non ce ne frega un cazzo cicciogamer89.wav"
-        },
-        "b06": {
-            "name": "Musica d'attesa",
-            "file": "Musica d'attesa.wav"
-        }
-    },
-    "last_path": "C:\\Users\\Winblu\\Desktop\\ts sound"
+    "device": 13,
+    "buttons": {},
+    "last_path": ""
 }
