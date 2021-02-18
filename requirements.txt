@@ -1,3 +1,0 @@
-Kivy~=2.0.0
-easygui~=0.98.2
-pyserial~=3.5
